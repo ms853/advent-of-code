@@ -1,0 +1,24 @@
+{
+  "name": "advent-of-code",
+  "version": "1.0.0",
+  "description": "Advent of Code Challenge 2022",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build":"tsc",
+    "start":"node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ms853/advent-of-code.git"
+  },
+  "author": "MBiggz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ms853/advent-of-code/issues"
+  },
+  "homepage": "https://github.com/ms853/advent-of-code#readme",
+  "dependencies": {
+    "typescript": "^4.9.4"
+  }
+}
