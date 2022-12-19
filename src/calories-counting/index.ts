@@ -1,5 +1,5 @@
 import { HelperUtils } from "../utils";
-
+import { readFileSync } from "fs";
 // Five elves 
 type ElveOne = {
     caloriesPerFood: number[],
@@ -27,12 +27,25 @@ type ElveFive = {
 };
 
 const elveOne: ElveOne = {
-    
+    caloriesPerFood: [],
+    calorieTotal: 0
 }; 
-const elveTwo: ElveTwo; 
-const elveThree: ElveThree; 
-const elveFour: ElveFour; 
-const elveFive: ElveFive;
+const elveTwo: ElveTwo = {
+    caloriesPerFood: [],
+    calorieTotal: 0
+}; 
+const elveThree: ElveThree = {
+    caloriesPerFood: [],
+    calorieTotal: 0
+}; 
+const elveFour: ElveFour = {
+    caloriesPerFood: [],
+    calorieTotal: 0
+}; 
+const elveFive: ElveFive = {
+    caloriesPerFood: [],
+    calorieTotal: 0
+}; 
 
 const getFoodCalories = (array: string[]) => {
 
@@ -44,13 +57,14 @@ const getFoodCalories = (array: string[]) => {
         }
     }
 }
-
-const mapCaloriesToElves = async () => {
+// WIP 
+const mapCaloriesToElves = () => {
     try {
-        const rawData = await HelperUtils.readerTxt('src/calories-counting/input.txt');
-        const dataArray = rawData?.split('\n');
+        const rawData = readFileSync('src/calories-counting/input.txt', 'utf8')
+        .split('\r\n').filter(l => l.length > 0).map(l => l.replace('\n', '').trim());
+        //const dataArray = rawData?.split('\n');
         
-        console.log(dataArray);
+        console.log(rawData);
     } catch (error) {
         
     }

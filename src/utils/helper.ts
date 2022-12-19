@@ -1,10 +1,14 @@
-import fs from 'fs/promises';
+import { readFileSync } from 'fs';
 
-const readerTxt = async (fileInput: string) => {
-    return fs.readFile(fileInput, 'utf8')
-    .then((data) => data)
-    .catch((error) => console.log('Unable to read file due to: ', error));
-};
+const readerTxt = (fileInput: string) => {};
+    
+
+// const readerTxt = (fileInput: string) => {
+//     return readFileSync(fileInput, 'utf8')
+//     .split('\r\n')
+//     .map(l => l.trim())
+//     .filter(l => l.length > 0);
+// };
 
 export const HelperUtils = {
     readerTxt,
