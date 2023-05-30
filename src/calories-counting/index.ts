@@ -1,73 +1,91 @@
 import { HelperUtils } from "../utils";
 import { readFileSync } from "fs";
-// Five elves 
-type ElveOne = {
-    caloriesPerFood: number[],
-    calorieTotal: number,
-};
 
-type ElveTwo = {
-    caloriesPerFood: number[],
-    calorieTotal: number,
-};
+const mockInput = `1000
+2000
+3000
 
-type ElveThree = {
-    caloriesPerFood: number[],
-    calorieTotal: number,
-};
+4000
 
-type ElveFour = {
-    caloriesPerFood: number[],
-    calorieTotal: number,
-};
+5000
+6000
 
-type ElveFive = {
-    caloriesPerFood: number[],
-    calorieTotal: number,
-};
+7000
+8000
+9000
 
-const elveOne: ElveOne = {
-    caloriesPerFood: [],
-    calorieTotal: 0
-}; 
-const elveTwo: ElveTwo = {
-    caloriesPerFood: [],
-    calorieTotal: 0
-}; 
-const elveThree: ElveThree = {
-    caloriesPerFood: [],
-    calorieTotal: 0
-}; 
-const elveFour: ElveFour = {
-    caloriesPerFood: [],
-    calorieTotal: 0
-}; 
-const elveFive: ElveFive = {
-    caloriesPerFood: [],
-    calorieTotal: 0
-}; 
+10000
+`; 
 
-const getFoodCalories = (array: string[]) => {
+const getInputData = (filePath: string): string[] => readFileSync(filePath, 'utf8').split('\n');
 
-    for (let element in array) {
-        elveOne.caloriesPerFood.push(parseInt(element));
+// part2  - Calculate sum of top 3 calories.  
+const calculateSumOfTopThreeCalories = () => {
+    try {
+        const rawData = getInputData('src/calories-counting/day1.txt');
+        const totalSum = calculateCalories(rawData, true);
+        
+        console.log(totalSum);
+    } catch (error) {
+        console.log(error);
+    }
+}
 
-        if (element === '') {
+const calculateCalories = (dataSet: string[], partTwo = false): number => {
+    let calorie = 0;
+    let largestCalories = 0;
+    let totalSumOfCalories = 0;
+
+    const calorieTotals: number[] = [];
+
+    for (let data of dataSet) {
+        if (data.trim() === '') {
+            if (largestCalories < calorie) {
+                largestCalories = calorie;
+                calorieTotals.push(largestCalories);
+            }
+            calorie = 0;
             continue;
         }
+        calorie += parseInt(data.trim());
     }
+
+    if (largestCalories < calorie) {
+        largestCalories = calorie;
+        calorieTotals.push(largestCalories);
+    }
+
+    if (partTwo) {
+        calorieTotals.forEach((cal) => totalSumOfCalories += cal );
+        return totalSumOfCalories;
+    }
+    console.log('Calories total =>', calorieTotals)
+
+    return largestCalories;
 }
-// WIP 
-const mapCaloriesToElves = () => {
+
+const processTotalCalories = () => {
     try {
-        const rawData = readFileSync('src/calories-counting/input.txt', 'utf8')
-        .split('\r\n').filter(l => l.length > 0).map(l => l.replace('\n', '').trim());
-        //const dataArray = rawData?.split('\n');
         
-        console.log(rawData);
+        const dataRead = getInputData('src/calories-counting/day1.txt');
+        // for (let data of dataRead) {
+        //     let strCal = data.trim();
+        //     if (strCal === '') {
+        //         if (mostCalories < calorie) {
+        //             mostCalories = calorie;
+        //         }
+        //         calorie = 0;
+        //         continue;
+        //     }
+        //     calorie += parseInt(strCal);
+        // }
+        let mostCalories = calculateCalories(dataRead);
+        
+        console.log(mostCalories);
     } catch (error) {
-        
+        console.log(error);
     }
 }
 
-mapCaloriesToElves();
+//processTotalCalories();
+calculateSumOfTopThreeCalories();
